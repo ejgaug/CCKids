@@ -1,49 +1,92 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Image, Text, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../../App";
-import { appFont, colors, screenDimensions } from "../styles/globalStyles";
+import { Text, TouchableOpacity, StyleSheet, Image as RNImage } from 'react-native';
+import { Image } from 'expo-image';
+import { appFont, colors, screenDimensions } from '../styles/globalStyles';
+import { Animal } from './SearchComp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect, memo } from 'react';
 
-interface Animal { 
-    name: string;
-    wiki_page: string;
-    fun_fact: string;
-    home: string[];
-    food: string[];
-    alt_name: string;
-    group: string;
-    colors: string[];
-    size: string;
-    movement: string;
-    sound: string;
-}
-
+// Define props for the AnimalCard component
 interface AnimalCardProps {
     animal: Animal;
     onPress: () => void;
 }
 
-const AnimalCard: React.FC<AnimalCardProps> = ({ onPress }) => {
-    const blurryImage = require('../../assets/blurredPic.png')
+// AnimalCard component displays an animal image or placeholder
+const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
+    const [imageUri, setImageUri] = useState<string | null>(null);
+    const [isVertical, setIsVertical] = useState(false);
+
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const savedImageUrl = await AsyncStorage.getItem(`${animal.name}_imageUrl`);
+                if (savedImageUrl) {
+                    setImageUri(savedImageUrl);
+                    RNImage.getSize(
+                        savedImageUrl,
+                        (width, height) => {
+                            setIsVertical(height >= width - 10);
+                        },
+                        (error) => {
+                            console.error('Error getting image size: ', error);
+                        }
+                    );
+                }
+            } catch (error) {
+                console.error('Error loading cached image:', error);
+            }
+        };
+        loadImage();
+    }, [animal.name]);
 
     return (
         <TouchableOpacity
             onPress={onPress}
-            style={{
-                width: screenDimensions.screenWidth * 0.35,
-                height: 100,
-                marginHorizontal: 12,
-                marginVertical: 8,
-                borderRadius: 18,
-                borderWidth: 4,
-                borderColor: colors.green1,
-                backgroundColor: colors.green2,
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
+            style={[styles.cardContainer, isVertical && styles.verticalCard]}
         >
-            <Text style={{ fontFamily: appFont, fontSize: 60, color: colors.green3 }}>?</Text>
+            {imageUri ? (
+                <Image
+                    source={{ uri: imageUri }}
+                    style={styles.cardImage}
+                    contentFit="cover"
+                    cachePolicy="disk"
+                    onError={(e) => console.log('Image load error:', e.error)}
+                />
+            ) : (
+                <Text style={styles.placeholderText}>?</Text>
+            )}
         </TouchableOpacity>
     );
 };
 
-export default AnimalCard;
+// Styles for the AnimalCard component
+const styles = StyleSheet.create({
+    cardContainer: {
+        width: screenDimensions.screenWidth * 0.35,
+        height: 100,
+        marginHorizontal: 12,
+        marginVertical: 8,
+        borderRadius: 18,
+        borderWidth: 4,
+        borderColor: colors.green1,
+        backgroundColor: colors.green2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    verticalCard: {
+        width: 100,
+        height: screenDimensions.screenWidth * 0.35,
+    },
+    cardImage: {
+        width: '100%',
+        height: '100%',
+    },
+    placeholderText: {
+        fontFamily: appFont,
+        fontSize: 60,
+        color: colors.green3,
+    },
+});
+
+export default memo(AnimalCard); // Wrap with React.memo

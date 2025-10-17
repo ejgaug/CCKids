@@ -18,6 +18,7 @@ export const colors = {
   green2: '#445F26', 
   green3: '#87A309', 
   green4: '#AFBA0B', // lightest green 
+  green5: '#018f01ff', // for green light
   tan: '#fedb7aff', // basicaly tan
 // export const easyColor = {base: '#03549C', text: '#9BBBFD'} // blue
 // export const midColor = {base: '#E6A400', text: '#FFEA7D' } // yellow
