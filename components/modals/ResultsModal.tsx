@@ -43,7 +43,7 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ visible, toggleModal
             const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${pageTitle}`;
             const response = await fetch(apiUrl, {
                 headers: {
-                    'User-Agent': 'CCKids/1.0 (contact@example.com)',
+                    'User-Agent': 'Critter Clues Kids (IOS and Android)',
                 },
             });
             const data = await response.json();

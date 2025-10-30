@@ -1,4 +1,15 @@
-import { StyleSheet, ViewStyle, TextStyle, ImageStyle, Dimensions } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, ImageStyle, Dimensions, Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+
+export const deviceType = () => { // tablet if true
+    if (Platform.OS === 'ios') {
+        return Platform.isPad ? 'Tablet' : 'Phone';
+    } else if (Platform.OS === 'android') {
+        return DeviceInfo.isTablet() ? 'Tablet' : 'Phone';
+    }
+        return 'Unknown'
+}
+export const androidTablet = deviceType() === 'Tablet' && Platform.OS === 'android';
 
 // Define interface for StyleSheet styles
 interface GlobalStyles {
@@ -48,8 +59,8 @@ export const globalStyles = StyleSheet.create<GlobalStyles>({
   buttonBackgrounds: {
     backgroundColor: 'white',
     borderRadius: 50,
-    width: screenDimensions.screenWidth * 0.19,
-    height: screenDimensions.screenHeight * 0.1,
+    width: deviceType() === 'Tablet' ? screenDimensions.screenWidth * 0.11 : screenDimensions.screenWidth * 0.19,
+    height: deviceType() === 'Tablet' ? screenDimensions.screenHeight * 0.095 : screenDimensions.screenHeight * 0.1,
     position: 'absolute',
     opacity: 0.3
   },

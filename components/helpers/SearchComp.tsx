@@ -1,4 +1,4 @@
-import { TextInput, TouchableOpacity, View, Text, FlatList, Keyboard } from "react-native";
+import { TextInput, TouchableOpacity, View, Text, FlatList, Keyboard, Platform } from "react-native";
 import { colors, screenDimensions } from "../styles/globalStyles";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState, useMemo, useEffect } from "react";
@@ -162,6 +162,7 @@ const SearchComp: React.FC<SearchCompProps> = ({ setModalVisible, filters, modal
                                     paddingLeft: 14,
                                     paddingRight: 35,
                                     fontSize: 26,
+                                    paddingVertical: 0,
                                     color: colors.green1,
                                     fontFamily: 'WalterTurncoat_400Regular',
                                     borderWidth: 2,
@@ -211,6 +212,7 @@ const SearchComp: React.FC<SearchCompProps> = ({ setModalVisible, filters, modal
                                 paddingLeft: 14,
                                 paddingRight: 35,
                                 fontSize: 26,
+                                paddingVertical: 0,
                                 color: colors.green1,
                                 fontFamily: 'WalterTurncoat_400Regular',
                                 borderWidth: 2,

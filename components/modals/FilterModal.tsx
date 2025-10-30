@@ -45,7 +45,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ setModalVisible, modalVisible
             Size: ['Very Tiny', 'Tiny', 'Small', 'Medium', 'Big', 'Huge', 'Giant'],
             Colors: ['Brown', 'Black', 'White', 'Gray', 'Green', 'Red', 'Yellow', 'Blue', 'Pink', 'Orange', 'Tan', 'Silver', 'Purple', 'Spotted'],
             Food: ['Meat', 'Plants', 'Plankton', 'Nectar'],
-            Movement: ['1 Foot', '0 Legs', '2 Legs', '4 Legs', '5-6 Legs', '8 Legs', '10+ Legs', 'Wings', 'Fins/Flippers'],
+            Movement: ['0 Legs', '2 Legs', '4 Legs', '5-6 Legs', '8 Legs', '10+ Legs', 'Wings', 'Fins/Flippers'],
             Habitat: ['in forests', 'in grasslands', 'in oceans', 'in wetlands', 'in jungles', 'in cities', 'in deserts', 'on mountains', 'on farms', 'in snowy areas'],
         };
         return (optionsMap[characteristic] || []).map((option) => ({
@@ -148,7 +148,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ setModalVisible, modalVisible
                                                     [characteristic]: newValue || [],
                                                 };
                                             });
-                                            console.log(`${characteristic}: ${values[characteristic]}`);
+                                            // console.log(`${characteristic}: ${values[characteristic]}`);
                                         }}
                                         setItems={() => {}} // No-op for static items
                                         style={styles.dropdown}
@@ -181,7 +181,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ setModalVisible, modalVisible
                                                     [characteristic]: newValue,
                                                 };
                                             });
-                                            console.log(`${characteristic}: ${values[characteristic]}`);
+                                            // console.log(`${characteristic}: ${values[characteristic]}`);
                                         }}
                                         setItems={() => {}} // No-op for static items
                                         style={styles.dropdown}

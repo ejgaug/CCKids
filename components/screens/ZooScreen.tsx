@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, Text, Platform, Linking } from 'react-native';
 import { globalStyles, colors, screenDimensions } from '../styles/globalStyles';
 import { animalList } from '../../assets/animalList';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -20,6 +20,8 @@ const ZooScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
     const { start, copilotEvents } = useCopilot(); // Access copilot start function
     const [isFirstOpen, setIsFirstOpen] = useState(false); // Track first open
+    const [nearingBottom, setnearingBottom] = useState(false);
+    const [foundAll, setFoundAll] = useState(true);
     const flatListRef = useRef<FlatList>(null);
 
     // Scroll to top when copilot starts
@@ -27,9 +29,7 @@ const ZooScreen: React.FC<Props> = ({ navigation }) => {
         const onStart = () => {
             flatListRef.current?.scrollToOffset({ offset: 0, animated: false });
         };
-
         copilotEvents.on('start', onStart);
-
         return () => {
             copilotEvents.off('start', onStart);
         };
@@ -73,14 +73,29 @@ const ZooScreen: React.FC<Props> = ({ navigation }) => {
                     name="ZooCardTip"
                 >
                     <WalkthroughableTouchableOpacity onPress={() => handleCardPress(item)}>
-                        <AnimalCard animal={item} onPress={() => handleCardPress(item)} />
+                        <AnimalCard animal={item} onPress={() => handleCardPress(item)} setFoundAll={setFoundAll} />
                     </WalkthroughableTouchableOpacity>
                 </CopilotStep>
             ) : (
-                <AnimalCard animal={item} onPress={() => handleCardPress(item)} />
+                <AnimalCard animal={item} onPress={() => handleCardPress(item)} setFoundAll={setFoundAll} />
             )}
         </View>
     );
+
+    const handleReset = () => {
+        console.log('reset game');
+        AsyncStorage.clear().then(() => {
+            setFoundAll(false);
+            flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+        }).catch(err => console.error('Error clearing AsyncStorage:', err));
+    }
+
+    const handleMore = () => {
+        const url = Platform.OS === 'ios'
+            ? 'https://apps.apple.com/gb/app/critter-clues/id6743952864?uo=2'
+            : 'https://play.google.com/store/apps/details?id=com.egaug.CritterClues&hl=en_US';
+        Linking.openURL(url).catch(err => console.error('Error opening URL:', err));
+    };
 
     return (
         <View style={styles.container}>
@@ -93,6 +108,28 @@ const ZooScreen: React.FC<Props> = ({ navigation }) => {
                 contentContainerStyle={styles.flatListContent}
                 initialNumToRender={20}
                 indicatorStyle="white"
+                onEndReached={() => setnearingBottom(true)}
+                onEndReachedThreshold={0.7}
+                onStartReached={() => setnearingBottom(false)}
+                onStartReachedThreshold={0.3}
+                ListFooterComponent={
+                    nearingBottom && foundAll ? (
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity
+                                style={[styles.button, { borderRightWidth: 1, borderTopLeftRadius: 15, borderBottomLeftRadius: 15 }]}
+                                onPress={handleReset}
+                            >
+                                <Text style={styles.buttonText}>Reset</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.button, { borderLeftWidth: 1, borderTopRightRadius: 15, borderBottomRightRadius: 15 }]}
+                                onPress={handleMore}
+                            >
+                                <Text style={styles.buttonText}>More</Text>
+                            </TouchableOpacity>
+                        </View>
+                    ) : null
+                }
             />
             {selectedAnimal && (
                 <ResultsModal
@@ -117,10 +154,31 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     cardWrapper: {
-        width: screenDimensions.screenWidth * 0.5 - 20, // Half screen width minus padding
-        height: screenDimensions.screenWidth * 0.37, // Max card height plus margins
+        width: screenDimensions.screenWidth * 0.5 - 16, // Half screen width minus padding
+        height: screenDimensions.screenWidth * 0.38, // Max card height plus margins
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        marginBottom: 20,
+    },
+    button: {
+        backgroundColor: colors.tan,
+        borderWidth: 2,
+        borderColor: colors.green1,
+        padding: 5,
+        width: screenDimensions.screenWidth * 0.4,
+        alignItems: 'center',
+    },
+    buttonText: {
+        fontFamily: 'WalterTurncoat_400Regular',
+        fontSize: 26,
+        color: colors.green1,
+        textAlign: 'center',
     },
 });
 

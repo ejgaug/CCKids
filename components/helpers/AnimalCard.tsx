@@ -1,18 +1,20 @@
 import { Text, TouchableOpacity, StyleSheet, Image as RNImage } from 'react-native';
 import { Image } from 'expo-image';
 import { appFont, colors, screenDimensions } from '../styles/globalStyles';
-import { Animal } from './SearchComp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect, memo } from 'react';
+import { Animal } from '../types';
+import { deviceType } from '../styles/globalStyles';
 
 // Define props for the AnimalCard component
 interface AnimalCardProps {
     animal: Animal;
     onPress: () => void;
+    setFoundAll: (newVal: boolean) => void
 }
 
 // AnimalCard component displays an animal image or placeholder
-const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
+const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress, setFoundAll }) => {
     const [imageUri, setImageUri] = useState<string | null>(null);
     const [isVertical, setIsVertical] = useState(false);
 
@@ -31,6 +33,8 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
                             console.error('Error getting image size: ', error);
                         }
                     );
+                } else {
+                    setFoundAll(false);
                 }
             } catch (error) {
                 console.error('Error loading cached image:', error);
@@ -48,7 +52,7 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
                 <Image
                     source={{ uri: imageUri }}
                     style={styles.cardImage}
-                    contentFit="cover"
+                    contentFit="fill"
                     cachePolicy="disk"
                     onError={(e) => console.log('Image load error:', e.error)}
                 />
@@ -62,8 +66,8 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
 // Styles for the AnimalCard component
 const styles = StyleSheet.create({
     cardContainer: {
-        width: screenDimensions.screenWidth * 0.35,
-        height: 100,
+        width: screenDimensions.screenWidth * 0.36,
+        height: deviceType() === 'Tablet' ? 200 : 100,
         marginHorizontal: 12,
         marginVertical: 8,
         borderRadius: 18,
@@ -75,8 +79,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     verticalCard: {
-        width: 100,
-        height: screenDimensions.screenWidth * 0.35,
+        width: deviceType() === 'Tablet' ? 210 : 110,
+        height: screenDimensions.screenWidth * 0.36,
     },
     cardImage: {
         width: '100%',

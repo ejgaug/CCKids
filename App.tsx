@@ -6,7 +6,7 @@ import LandingScreen from './components/screens/LandingScreen';
 import ZooScreen from './components/screens/ZooScreen';
 import PlayScreen from './components/screens/PlayScreen';
 import Header from './components/styles/Header';
-import { ImageBackground, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Platform, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import AppBackground from './components/styles/AppBackground';
 import { useFonts, WalterTurncoat_400Regular } from '@expo-google-fonts/walter-turncoat';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,7 +30,7 @@ const App: React.FC = () => {
         <CopilotProvider
             animated={true}
             overlay="svg"
-            verticalOffset={0} // Align with info icon
+            verticalOffset={Platform.OS === 'ios' ? 0 : 50} // Align with info icon
             tooltipComponent={(props) => <CustomTooltip {...props} extraStepTracker={extraStepTracker} setextraStepTracker={setextraStepTracker} />}
             stepNumberComponent={CustomStepNumber}
             tooltipStyle={{backgroundColor: 'transparent', padding: 0, width: '75%', alignItems: 'center', paddingTop: 0, paddingBottom: 0}}

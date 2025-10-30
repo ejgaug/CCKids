@@ -425,7 +425,7 @@ export const animalList = [
         "group": "Bird",
         "colors": ["Black", "White"],
         "size": "Small",
-        "movement": "2 Legs",
+        "movement": "Wings",
         "sound": "Honks"
     },
     {
@@ -722,7 +722,7 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Eagle",
         "group": "Bird",
-        "colors": ["Brown", "White"],
+        "colors": ["Brown", "White", "Gray"],
         "size": "Medium",
         "movement": "Wings",
         "sound": "Screeches"
@@ -782,7 +782,7 @@ export const animalList = [
     {
         "name": "Chimpanzee",
         "wiki_page": "https://en.wikipedia.org/wiki/Chimpanzee",
-        "fun_fact": "Known to use tools to get food",
+        "fun_fact": "Share nearly 99% of their DNA with humans",
         "habitat": ["in jungles", "in forests"],
         "food": ["Plants", "Meat"],
         "alt_name": "Chimpanzee",
@@ -802,7 +802,7 @@ export const animalList = [
         "group": "Bird",
         "colors": ["Pink"],
         "size": "Small",
-        "movement": "2 Legs",
+        "movement": "Wings",
         "sound": "Honks"
     },
     {
@@ -813,9 +813,9 @@ export const animalList = [
         "food": ["Plants", "Meat"],
         "alt_name": "Duck",
         "group": "Bird",
-        "colors": ["Brown", "Green"],
+        "colors": ["Brown", "Green", "White", "Black"],
         "size": "Small",
-        "movement": "2 Legs",
+        "movement": "Wings",
         "sound": "Quacks"
     },
     {
@@ -826,8 +826,8 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Woodpecker",
         "group": "Bird",
-        "colors": ["Black", "Red"],
-        "size": "Small",
+        "colors": ["Black", "Red", "White"],
+        "size": "Tiny",
         "movement": "Wings",
         "sound": "Drums"
     },
@@ -845,7 +845,7 @@ export const animalList = [
         "sound": "Brays"
     },
     {
-        "name": "Rhinocerous",
+        "name": "Rhinoceros",
         "wiki_page": "https://en.wikipedia.org/wiki/Rhinoceros",
         "fun_fact": "Has a horn made of hair",
         "habitat": ["in grasslands"],
@@ -878,7 +878,7 @@ export const animalList = [
         "food": ["Nectar"],
         "alt_name": "Butterfly",
         "group": "Invertebrate",
-        "colors": ["Blue", "Orange"],
+        "colors": ["Blue", "Orange", "White", "Black", "Yellow"],
         "size": "Tiny",
         "movement": "Wings",
         "sound": "Quiet"
@@ -898,7 +898,7 @@ export const animalList = [
     },
     {
         "name": "Sparrow",
-        "wiki_page": "https://en.wikipedia.org/wiki/Sparrow",
+        "wiki_page": "https://en.wikipedia.org/wiki/Old_World_sparrow",
         "fun_fact": "Can be seen in the skies of every contentient except Antarctica",
         "habitat": ["in cities", "in grasslands"],
         "food": ["Plants", "Meat"],
@@ -908,6 +908,19 @@ export const animalList = [
         "size": "Tiny",
         "movement": "Wings",
         "sound": "Chirps"
+    },
+    {
+        "name": "Trout",
+        "wiki_page": "https://en.wikipedia.org/wiki/Trout",
+        "fun_fact": "Has a 'rainbow' variety",
+        "habitat": ["in oceans", "in wetlands"],
+        "food": ["Meat"],
+        "alt_name": "Trout",
+        "group": "Fish",
+        "colors": ["Silver", "Green"],
+        "size": "Medium",
+        "movement": "Fins/Flippers",
+        "sound": "Quiet"
     },
     {
         "name": "Orangutan",
@@ -938,7 +951,7 @@ export const animalList = [
     {
         "name": "Hippopotamus",
         "wiki_page": "https://en.wikipedia.org/wiki/Hippopotamus",
-        "fun_fact": "Spends most of its day in water",
+        "fun_fact": "Moves by holding their breath and walking underwater",
         "habitat": ["in wetlands", "in grasslands"],
         "food": ["Plants"],
         "alt_name": "Hippopotamus",
@@ -983,7 +996,7 @@ export const animalList = [
         "alt_name": "Crow",
         "group": "Bird",
         "colors": ["Black"],
-        "size": "Small",
+        "size": "Tiny",
         "movement": "Wings",
         "sound": "Caws"
     },
@@ -995,8 +1008,8 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Horse",
         "group": "Mammal",
-        "colors": ["Brown", "White", "Black"],
-        "size": "Huge",
+        "colors": ["Brown", "White", "Black", "Gray"],
+        "size": "Big",
         "movement": "4 Legs",
         "sound": "Neighs"
     },
@@ -1034,7 +1047,7 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Pigeon",
         "group": "Bird",
-        "colors": ["Gray", "White"],
+        "colors": ["Gray", "White", "Green"],
         "size": "Small",
         "movement": "Wings",
         "sound": "Coos"
@@ -1099,7 +1112,7 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Salamander",
         "group": "Amphibian",
-        "colors": ["Black", "Yellow"],
+        "colors": ["Black", "Yellow", "Orange", "Blue"],
         "size": "Tiny",
         "movement": "4 Legs",
         "sound": "Quiet"
@@ -1133,12 +1146,12 @@ export const animalList = [
     {
         "name": "Anaconda",
         "wiki_page": "https://en.wikipedia.org/wiki/Anaconda",
-        "fun_fact": "One of the longest snakes in the world",
+        "fun_fact": "The heaviest snake in the world",
         "habitat": ["in jungles", "in wetlands"],
         "food": ["Meat"],
         "alt_name": "Anaconda",
         "group": "Reptile",
-        "colors": ["Green", "Brown"],
+        "colors": ["Green", "Brown", "Black"],
         "size": "Big",
         "movement": "0 Legs",
         "sound": "Hisses"
@@ -1424,9 +1437,9 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Snail",
         "group": "Invertebrate",
-        "colors": ["Brown", "Gray"],
+        "colors": ["Brown", "Gray", "Tan"],
         "size": "Tiny",
-        "movement": "1 Foot",
+        "movement": "0 Legs",
         "sound": "Quiet"
     },
     {
@@ -1452,7 +1465,7 @@ export const animalList = [
         "group": "Invertebrate",
         "colors": ["Gray", "White"],
         "size": "Big",
-        "movement": "1 Foot",
+        "movement": "0 Legs",
         "sound": "Quiet"
     },
     {
@@ -1465,7 +1478,7 @@ export const animalList = [
         "group": "Bird",
         "colors": ["Gray", "White"],
         "size": "Small",
-        "movement": "2 Legs",
+        "movement": "Wings",
         "sound": "Squawks"
     },
     {
@@ -1495,19 +1508,6 @@ export const animalList = [
         "sound": "Hisses"
     },
     {
-        "name": "Centipede",
-        "wiki_page": "https://en.wikipedia.org/wiki/Centipede",
-        "fun_fact": "Has a pair of legs for each body segment",
-        "habitat": ["in forests", "in jungles"],
-        "food": ["Meat"],
-        "alt_name": "Centipede",
-        "group": "Invertebrate",
-        "colors": ["Brown", "Red"],
-        "size": "Tiny",
-        "movement": "10+ Legs",
-        "sound": "Quiet"
-    },
-    {
         "name": "Barnacle",
         "wiki_page": "https://en.wikipedia.org/wiki/Barnacle",
         "fun_fact": "Sticks to rocks and ships",
@@ -1517,7 +1517,7 @@ export const animalList = [
         "group": "Invertebrate",
         "colors": ["White", "Gray"],
         "size": "Tiny",
-        "movement": "1 Foot",
+        "movement": "0 Legs",
         "sound": "Quiet"
     },
     {
@@ -1549,7 +1549,7 @@ export const animalList = [
     {
         "name": "Cicada",
         "wiki_page": "https://en.wikipedia.org/wiki/Cicada",
-        "fun_fact": "Makes loud noises to attract mates",
+        "fun_fact": "Spend most of their lives underground, emerging from the ground every 13 or 17 years",
         "habitat": ["in forests", "in grasslands"],
         "food": ["Plants"],
         "alt_name": "Cicada",
@@ -1612,9 +1612,22 @@ export const animalList = [
         "sound": "Buzzes"
     },
     {
+        "name": "Humpback Whale",
+        "wiki_page": "https://en.wikipedia.org/wiki/Humpback_whale",
+        "fun_fact": "Sings long, beautiful songs",
+        "habitat": ["in oceans"],
+        "food": ["Plankton", "Meat"],
+        "alt_name": "Humpback Whale",
+        "group": "Mammal",
+        "colors": ["Black", "White"],
+        "size": "Giant",
+        "movement": "Fins/Flippers",
+        "sound": "Sings"
+    },
+    {
         "name": "Iguana",
         "wiki_page": "https://en.wikipedia.org/wiki/Iguana",
-        "fun_fact": "Can fall from trees and survive",
+        "fun_fact": "Have a 'third eye' to detect predators above them",
         "habitat": ["in jungles", "in wetlands"],
         "food": ["Plants"],
         "alt_name": "Iguana",
@@ -1623,19 +1636,6 @@ export const animalList = [
         "size": "Small",
         "movement": "4 Legs",
         "sound": "Hisses"
-    },
-    {
-        "name": "Sea Turtle",
-        "wiki_page": "https://en.wikipedia.org/wiki/Sea_turtle",
-        "fun_fact": "Females lay their eggs at the same place they were born",
-        "habitat": ["in oceans"],
-        "food": ["Plants", "Meat"],
-        "alt_name": "Sea Turtle",
-        "group": "Reptile",
-        "colors": ["Green", "Brown"],
-        "size": "Big",
-        "movement": "Fins/Flippers",
-        "sound": "Quiet"
     },
     {
         "name": "Scorpion",
@@ -1666,8 +1666,8 @@ export const animalList = [
     {
         "name": "Eel",
         "wiki_page": "https://en.wikipedia.org/wiki/Eel",
-        "fun_fact": "Can swim backwards",
-        "habitat": ["in oceans"],
+        "fun_fact": "Migrates to the Sargasso Sea to spawn, babies then follow current back to shore",
+        "habitat": ["in oceans", "wetlands"],
         "food": ["Meat"],
         "alt_name": "Eel",
         "group": "Fish",
@@ -1684,7 +1684,7 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Caribou",
         "group": "Mammal",
-        "colors": ["Brown", "White"],
+        "colors": ["Brown", "White", "Gray"],
         "size": "Big",
         "movement": "4 Legs",
         "sound": "Grunts"
@@ -1716,19 +1716,6 @@ export const animalList = [
         "sound": "Screams"
     },
     {
-        "name": "Trout",
-        "wiki_page": "https://en.wikipedia.org/wiki/Trout",
-        "fun_fact": "Can swim against strong currents",
-        "habitat": ["in oceans", "in wetlands"],
-        "food": ["Meat"],
-        "alt_name": "Trout",
-        "group": "Fish",
-        "colors": ["Silver", "Green"],
-        "size": "Medium",
-        "movement": "Fins/Flippers",
-        "sound": "Quiet"
-    },
-    {
         "name": "Sardine",
         "wiki_page": "https://en.wikipedia.org/wiki/Sardine",
         "fun_fact": "Swims in huge schools for safety",
@@ -1749,22 +1736,22 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Aardvark",
         "group": "Mammal",
-        "colors": ["Gray", "Brown"],
+        "colors": ["Gray", "Brown", "Pink"],
         "size": "Medium",
         "movement": "4 Legs",
         "sound": "Grunts"
     },
     {
-        "name": "Anemone",
+        "name": "Sea Anemone",
         "wiki_page": "https://en.wikipedia.org/wiki/Sea_anemone",
-        "fun_fact": "Looks like a plant but is an animal",
+        "fun_fact": "Has a mutualistic relationship (both animals benefit) with Clownfish",
         "habitat": ["in oceans"],
         "food": ["Plankton"],
         "alt_name": "Sea Anemone",
         "group": "Invertebrate",
         "colors": ["Pink", "Green"],
         "size": "Small",
-        "movement": "1 Foot",
+        "movement": "0 Legs",
         "sound": "Quiet"
     },
     {
@@ -1820,14 +1807,14 @@ export const animalList = [
         "sound": "Quiet"
     },
     {
-        "name": "Horsefly",
+        "name": "Horsefly", // maybe gone
         "wiki_page": "https://en.wikipedia.org/wiki/Horsefly",
         "fun_fact": "Has super fast wings",
         "habitat": ["in forests", "in wetlands"],
         "food": ["Nectar", "Meat"],
         "alt_name": "Horsefly",
         "group": "Invertebrate",
-        "colors": ["Black", "Brown"],
+        "colors": ["Black", "Brown", "Gray"],
         "size": "Very Tiny",
         "movement": "Wings",
         "sound": "Buzzes"
@@ -1861,12 +1848,12 @@ export const animalList = [
     {
         "name": "Tuna",
         "wiki_page": "https://en.wikipedia.org/wiki/Tuna",
-        "fun_fact": "Can swim as fast as a car",
+        "fun_fact": "Can swim as fast as 45mph (70kph)",
         "habitat": ["in oceans"],
         "food": ["Meat"],
         "alt_name": "Tuna",
         "group": "Fish",
-        "colors": ["Silver", "Blue"],
+        "colors": ["Silver", "Blue", "Yellow"],
         "size": "Big",
         "movement": "Fins/Flippers",
         "sound": "Quiet"
@@ -1874,7 +1861,7 @@ export const animalList = [
     {
         "name": "Wombat",
         "wiki_page": "https://en.wikipedia.org/wiki/Wombat",
-        "fun_fact": "Digs burrows with strong claws",
+        "fun_fact": "They poop cubes",
         "habitat": ["in grasslands", "in forests"],
         "food": ["Plants"],
         "alt_name": "Wombat",
@@ -1940,7 +1927,7 @@ export const animalList = [
         "name": "Jaguar",
         "wiki_page": "https://en.wikipedia.org/wiki/Jaguar",
         "fun_fact": "Hunts and kills crocodiles",
-        "habitat": ["in jungles", "in forests"],
+        "habitat": ["in jungles"],
         "food": ["Meat"],
         "alt_name": "Jaguar",
         "group": "Mammal",
@@ -1959,7 +1946,7 @@ export const animalList = [
         "group": "Invertebrate",
         "colors": ["Brown", "Blue", "Green", "Orange"],
         "size": "Tiny",
-        "movement": "10 Legs",
+        "movement": "10+ Legs",
         "sound": "Quiet"
     },
     {
@@ -1996,7 +1983,7 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Barracuda",
         "group": "Fish",
-        "colors": ["Silver", "Green"],
+        "colors": ["Silver", "Blue", "Green"],
         "size": "Medium",
         "movement": "Fins/Flippers",
         "sound": "Quiet"
@@ -2043,7 +2030,7 @@ export const animalList = [
     {
         "name": "Stingray",
         "wiki_page": "https://en.wikipedia.org/wiki/Stingray",
-        "fun_fact": "Has a sharp tail to protect itself",
+        "fun_fact": "Has a sharp barb on its tail to protect itself",
         "habitat": ["in oceans", "in wetlands"],
         "food": ["Meat"],
         "alt_name": "Stingray",
@@ -2056,7 +2043,7 @@ export const animalList = [
     {
         "name": "Housefly",
         "wiki_page": "https://en.wikipedia.org/wiki/Housefly",
-        "fun_fact": "Can walk upside down",
+        "fun_fact": "Has compound eyes that with thousands of tiny lenses",
         "habitat": ["in cities", "in forests"],
         "food": ["Plants", "Meat"],
         "alt_name": "Housefly",
@@ -2083,11 +2070,11 @@ export const animalList = [
         "name": "Betta Fish",
         "wiki_page": "https://en.wikipedia.org/wiki/Betta_fish",
         "fun_fact": "Has bright fins to show off",
-        "habitat": ["in oceans", "in cities"],
+        "habitat": ["in wetlands", "in cities"],
         "food": ["Meat"],
         "alt_name": "Betta Fish",
         "group": "Fish",
-        "colors": ["Blue", "Red"],
+        "colors": ["Blue", "Red", "Green"],
         "size": "Tiny",
         "movement": "Fins/Flippers",
         "sound": "Quiet"
@@ -2095,12 +2082,12 @@ export const animalList = [
     {
         "name": "Macaw",
         "wiki_page": "https://en.wikipedia.org/wiki/Macaw",
-        "fun_fact": "Can crack nuts with its strong beak",
+        "fun_fact": "The largest parrot species",
         "habitat": ["in jungles"],
         "food": ["Plants"],
         "alt_name": "Macaw",
         "group": "Bird",
-        "colors": ["Red", "Blue"],
+        "colors": ["Red", "Blue", "Green", "Yellow"],
         "size": "Small",
         "movement": "Wings",
         "sound": "Screeches"
@@ -2173,7 +2160,7 @@ export const animalList = [
     {
         "name": "Hedgehog",
         "wiki_page": "https://en.wikipedia.org/wiki/Hedgehog",
-        "fun_fact": "Rolls into a ball to protect itself",
+        "fun_fact": "Rolls into a spikey ball to protect itself",
         "habitat": ["in forests", "in cities"],
         "food": ["Meat"],
         "alt_name": "Hedgehog",
@@ -2192,19 +2179,19 @@ export const animalList = [
         "alt_name": "Crane",
         "group": "Bird",
         "colors": ["Gray", "White"],
-        "size": "Small",
-        "movement": "2 Legs",
+        "size": "Medium",
+        "movement": "Wings",
         "sound": "Trumpets"
     },
     {
         "name": "Poison Dart Frog",
         "wiki_page": "https://en.wikipedia.org/wiki/Poison_dart_frog",
-        "fun_fact": "Has skin that can be poisonous",
+        "fun_fact": "Their skin becomes poisonous from the bugs that they eat",
         "habitat": ["in jungles"],
         "food": ["Meat"],
         "alt_name": "Poison Dart Frog",
         "group": "Amphibian",
-        "colors": ["Red", "Blue"],
+        "colors": ["Red", "Blue", "Black"],
         "size": "Tiny",
         "movement": "4 Legs",
         "sound": "Chirps"
@@ -2212,7 +2199,7 @@ export const animalList = [
     {
         "name": "Python",
         "wiki_page": "https://en.wikipedia.org/wiki/Python_(genus)",
-        "fun_fact": "Can swallow prey whole",
+        "fun_fact": "Swallows its prey whole",
         "habitat": ["in jungles", "in grasslands"],
         "food": ["Meat"],
         "alt_name": "Python",
@@ -2223,9 +2210,22 @@ export const animalList = [
         "sound": "Hisses"
     },
     {
+        "name": "Centipede",
+        "wiki_page": "https://en.wikipedia.org/wiki/Centipede",
+        "fun_fact": "Has a pair of legs for each body segment",
+        "habitat": ["in forests", "in jungles"],
+        "food": ["Meat"],
+        "alt_name": "Centipede",
+        "group": "Invertebrate",
+        "colors": ["Brown", "Red"],
+        "size": "Tiny",
+        "movement": "10+ Legs",
+        "sound": "Quiet"
+    },
+    {
         "name": "Bison",
         "wiki_page": "https://en.wikipedia.org/wiki/American_bison",
-        "fun_fact": "Can charge at 35 miles per hour",
+        "fun_fact": "The national mammal of the United States",
         "habitat": ["in grasslands", "on mountains"],
         "food": ["Plants"],
         "alt_name": "Bison",
@@ -2250,7 +2250,7 @@ export const animalList = [
     },
     {
         "name": "Canary",
-        "wiki_page": "https://en.wikipedia.org/wiki/Canary",
+        "wiki_page": "https://en.wikipedia.org/wiki/Domestic_canary",
         "fun_fact": "Sings beautiful songs",
         "habitat": ["in cities", "in forests"],
         "food": ["Plants"],
@@ -2295,7 +2295,7 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Red Panda",
         "group": "Mammal",
-        "colors": ["Red", "White"],
+        "colors": ["Red", "White", "Black"],
         "size": "Small",
         "movement": "4 Legs",
         "sound": "Chirps"
@@ -2470,6 +2470,19 @@ export const animalList = [
         "sound": "Quiet"
     },
     {
+        "name": "Sea Turtle",
+        "wiki_page": "https://en.wikipedia.org/wiki/Sea_turtle",
+        "fun_fact": "Females lay their eggs at the same place they were born",
+        "habitat": ["in oceans"],
+        "food": ["Plants", "Meat"],
+        "alt_name": "Sea Turtle",
+        "group": "Reptile",
+        "colors": ["Green", "Brown"],
+        "size": "Big",
+        "movement": "Fins/Flippers",
+        "sound": "Quiet"
+    },
+    {
         "name": "Puffin",
         "wiki_page": "https://en.wikipedia.org/wiki/Puffin",
         "fun_fact": "Dives deep to catch fish",
@@ -2478,7 +2491,7 @@ export const animalList = [
         "alt_name": "Puffin",
         "group": "Bird",
         "colors": ["Black", "White"],
-        "size": "Small",
+        "size": "Tiny",
         "movement": "Wings",
         "sound": "Grunts"
     },
@@ -2503,9 +2516,9 @@ export const animalList = [
         "food": ["Plants"],
         "alt_name": "Slug",
         "group": "Invertebrate",
-        "colors": ["Brown", "Gray"],
+        "colors": ["Brown", "Gray", "Yellow"],
         "size": "Tiny",
-        "movement": "1 Foot",
+        "movement": "0 Legs",
         "sound": "Quiet"
     },
     {
@@ -2535,19 +2548,6 @@ export const animalList = [
         "sound": "Screeches"
     },
     {
-        "name": "Humpback Whale",
-        "wiki_page": "https://en.wikipedia.org/wiki/Humpback_whale",
-        "fun_fact": "Sings long, beautiful songs",
-        "habitat": ["in oceans"],
-        "food": ["Plankton", "Meat"],
-        "alt_name": "Humpback Whale",
-        "group": "Mammal",
-        "colors": ["Black", "White"],
-        "size": "Giant",
-        "movement": "Fins/Flippers",
-        "sound": "Sings"
-    },
-    {
         "name": "Beluga Whale",
         "wiki_page": "https://en.wikipedia.org/wiki/Beluga_whale",
         "fun_fact": "Called sea canary for its chirps",
@@ -2568,7 +2568,7 @@ export const animalList = [
         "food": ["Plants", "Meat"],
         "alt_name": "Angelfish",
         "group": "Fish",
-        "colors": ["Yellow", "Black"],
+        "colors": ["Yellow", "Black", "Silver", "Red"],
         "size": "Small",
         "movement": "Fins/Flippers",
         "sound": "Quiet"
@@ -2607,7 +2607,7 @@ export const animalList = [
         "food": ["Meat"],
         "alt_name": "Armadillo",
         "group": "Mammal",
-        "colors": ["Gray", "Brown"],
+        "colors": ["Gray", "Brown", "Black"],
         "size": "Medium",
         "movement": "4 Legs",
         "sound": "Grunts"

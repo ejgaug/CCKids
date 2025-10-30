@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { globalStyles, colors, screenDimensions } from '../styles/globalStyles';
+import { globalStyles, colors, screenDimensions, deviceType } from '../styles/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
 import { animalList } from '../../assets/animalList';
@@ -53,10 +53,10 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation, route }) => {
     return (
         <View style={globalStyles.container}>
             <DailyDiscovery navigation={navigation} route={route}/>
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 onPress={() => AsyncStorage.clear()}
                 style={{ borderColor: 'white', borderRadius: 20, width: 30, height: 30, backgroundColor: 'white', position: 'absolute', bottom: screenDimensions.screenHeight * 0.35 }}
-            />
+            /> */}
             <View
                 style={{
                     flexDirection: 'row',
@@ -64,7 +64,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation, route }) => {
             >
                 <View
                     style={[globalStyles.buttonBackgrounds, {
-                        top: screenDimensions.screenHeight * 0.205,
+                        top: deviceType() === 'Tablet' ? screenDimensions.screenHeight * 0.3 : screenDimensions.screenHeight * 0.205,
                         right: screenDimensions.screenWidth * 0.142,
                         transform: [{ rotate: '-12deg' }],
                     }]}
@@ -77,7 +77,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation, route }) => {
                     <WalkthroughableTouchableOpacity
                         style={[globalStyles.landingButtons, {
                             right: screenDimensions.screenWidth * 0.15,
-                            top: screenDimensions.screenHeight * 0.2,
+                            top: deviceType() === 'Tablet' ? screenDimensions.screenHeight * 0.29 : screenDimensions.screenHeight * 0.2,
                         }]}
                         onPress={() => navigation.navigate('Zoo')}
                     >
@@ -87,8 +87,8 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation, route }) => {
                 </CopilotStep>
                 <View
                     style={[globalStyles.buttonBackgrounds, {
+                        top: deviceType() === 'Tablet' ? screenDimensions.screenHeight * 0.31 : screenDimensions.screenHeight * 0.226,
                         left: screenDimensions.screenWidth * 0.09,
-                        top: screenDimensions.screenHeight * 0.226,
                         transform: [{ rotate: '12deg' }],
                     }]}
                 />
@@ -100,7 +100,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation, route }) => {
                     <WalkthroughableTouchableOpacity
                         style={[globalStyles.landingButtons, {
                             left: screenDimensions.screenWidth * 0.1,
-                            top: screenDimensions.screenHeight * 0.22,
+                            top: deviceType() === 'Tablet' ? screenDimensions.screenHeight * 0.3 : screenDimensions.screenHeight * 0.22,
                         }]}
                         onPress={handlePlayPress}
                     >

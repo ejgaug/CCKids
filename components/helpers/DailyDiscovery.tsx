@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { appFont, colors, screenDimensions } from "../styles/globalStyles";
 import { ScrollView, Pressable } from "react-native-gesture-handler";
 import { animalList } from "../../assets/animalList";
@@ -31,6 +31,7 @@ const DailyDiscovery: React.FC<DailyDiscoveryProps> = ({ navigation }) => {
     const [dailyHints, setDailyHints] = useState<any[]>(['', '', '']);
     const [currentPage, setCurrentPage] = useState(0);
     const [ddTracker, setDdTracker] = useState<number | null>(null);
+    const [foundAll, setFoundAll] = useState(false);
     const scrollViewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
@@ -83,58 +84,76 @@ const DailyDiscovery: React.FC<DailyDiscoveryProps> = ({ navigation }) => {
                 }
             }
 
+            // Filter unguessed animals -- check if all animals have been found
+            let allFound = true;
+            const unguessedIndexes: number[] = [];
+            for (let i = 0; i < animalList.length; i++) {
+                const correctGuess = await AsyncStorage.getItem(`${animalList[i].name}_correctGuess`);
+                if (correctGuess !== 'true') {
+                    allFound = false;
+                    unguessedIndexes.push(i);
+                }
+            }
+            setFoundAll(allFound);
+            if (allFound) return;
+
             if (storedDate === today && storedHints && storedIndexes) {
                 setDailyHints(JSON.parse(storedHints));
                 setAnimalIndexes(JSON.parse(storedIndexes));
-            } else {
-                // Filter unguessed animals
-                const unguessedIndexes = [];
-                for (let i = 0; i < animalList.length; i++) {
-                    const correctGuess = await AsyncStorage.getItem(`${animalList[i].name}_correctGuess`);
-                    if (correctGuess !== 'true') {
-                        unguessedIndexes.push(i);
-                    }
-                }
+                return;
+            } 
 
-                // Generate indexes for hints
-                const indexArray = [];
-                for (let i = 0; i < 3; i++) {
-                    const index = unguessedIndexes.length > 0
-                        ? unguessedIndexes[Math.floor(Math.random() * unguessedIndexes.length)]
-                        : Math.floor(Math.random() * animalList.length);
-                    indexArray.push(index);
-                }
-
-                const newHints = indexArray.map((index) => getCharacteristic(index));
-                setAnimalIndexes(indexArray);
-                setDailyHints(newHints);
-                setDdTracker(null);
-
-                await AsyncStorage.setItem("hintDate", today);
-                await AsyncStorage.setItem("dailyHints", JSON.stringify(newHints));
-                await AsyncStorage.setItem("animalIndexes", JSON.stringify(indexArray));
-                await AsyncStorage.setItem("ddTracker", JSON.stringify(null));
-                // Clear DailyDiscovery hint data for new day // Clear hint data on new day
-                await AsyncStorage.removeItem("dailyHintData");
+            // Generate 3 hints
+            const indexArray: number[] = [];
+            for (let i = 0; i < 3; i++) {
+                if (unguessedIndexes.length === 0) break;
+                const rand = Math.floor(Math.random() * unguessedIndexes.length);
+                indexArray.push(unguessedIndexes[rand]);
             }
+            // Fill missing slots with random from available unguessed
+            while (indexArray.length < 3 && unguessedIndexes.length > 0) {
+                const rand = Math.floor(Math.random() * unguessedIndexes.length);
+                indexArray.push(unguessedIndexes[rand]);
+            }
+
+            const newHints = indexArray.map((index) => getCharacteristic(index));
+            setAnimalIndexes(indexArray);
+            setDailyHints(newHints);
+            setDdTracker(null);
+
+            await AsyncStorage.setItem("hintDate", today);
+            await AsyncStorage.setItem("dailyHints", JSON.stringify(newHints));
+            await AsyncStorage.setItem("animalIndexes", JSON.stringify(indexArray));
+            await AsyncStorage.setItem("ddTracker", JSON.stringify(null));
+            // Clear DailyDiscovery hint data for new day // Clear hint data on new day
+            await AsyncStorage.removeItem("dailyHintData");
         };
         checkAndUpdateHints();
     }, []);
 
-    const handleExplorePress = () => {
-        setDdTracker(currentPage);
-        AsyncStorage.setItem("ddTracker", JSON.stringify(currentPage)).catch((error) =>
-            console.error("Error saving ddTracker:", error)
-        );
-        const selectedAnimal = animalList[animalIndexes[currentPage]];
-        // Save DailyDiscovery hint data // Save hint and characteristic
-        const hintType = getHintType(dailyHints[currentPage]);
-        AsyncStorage.setItem("dailyHintData", JSON.stringify({
-            animalName: selectedAnimal.name,
-            hint: dailyHints[currentPage],
-            hintType
-        })).catch((error) => console.error("Error saving dailyHintData:", error));
-        navigation.navigate('Play', { animal: selectedAnimal, extraStepTracker: 0 });
+    const handleExplorePress = (key: string) => {
+        if (key === 'start') {
+            setDdTracker(currentPage);
+            AsyncStorage.setItem("ddTracker", JSON.stringify(currentPage)).catch((error) =>
+                console.error("Error saving ddTracker:", error)
+            );
+            const selectedAnimal = animalList[animalIndexes[currentPage]];
+            // Save DailyDiscovery hint data // Save hint and characteristic
+            const hintType = getHintType(dailyHints[currentPage]);
+            AsyncStorage.setItem("dailyHintData", JSON.stringify({
+                animalName: selectedAnimal.name,
+                hint: dailyHints[currentPage],
+                hintType
+            })).catch((error) => console.error("Error saving dailyHintData:", error));
+            navigation.navigate('Play', { animal: selectedAnimal, extraStepTracker: 0 });
+        } else if (key === 'keep') {
+            const url = Platform.OS === 'ios'
+                ? 'https://apps.apple.com/gb/app/critter-clues/id6743952864?uo=2'
+                : 'https://play.google.com/store/apps/details?id=com.egaug.CritterClues&hl=en_US';
+            Linking.openURL(url).catch(err => console.error('Error opening URL:', err));
+        } else {
+            console.error('Received a key other than keep or start in DailyDiscovery.')
+        }
     };
 
     const aOrAn = (group: string) => {
@@ -194,10 +213,6 @@ const DailyDiscovery: React.FC<DailyDiscoveryProps> = ({ navigation }) => {
         setCurrentPage(pageIndex);
     };
 
-    const handleInfo = () => {
-        
-    }
-
     const isButtonDisabled = ddTracker !== null && ddTracker !== currentPage;
 
     return (
@@ -206,74 +221,111 @@ const DailyDiscovery: React.FC<DailyDiscoveryProps> = ({ navigation }) => {
                 order={1}
                 name="DailyDiscoveryTip"                        
         >
-            <WalkthroughableView
-                style={{
-                    borderWidth: 3,
-                    borderColor: colors.green1,
-                    borderRadius: 16,
-                    width: screenDimensions.screenWidth * 0.8,
-                    height: screenDimensions.screenHeight * 0.42,
-                    backgroundColor: colors.tan,
-                    position: 'absolute',
-                    top: screenDimensions.screenHeight * 0.03,
-                    opacity: 0.85,
-                }}
-            >
-                {/* <TouchableOpacity onPress={handleInfo}>
-                    <Ionicons 
-                        name="information-circle-outline"
-                        size={28}
-                        style={styles.info}
-                        color={colors.green1}
-                    />
-                </TouchableOpacity> */}
-                <Text
+            {foundAll ? (
+                <WalkthroughableView
                     style={{
-                        fontFamily: appFont,
-                        fontSize: 28,
-                        color: colors.green1,
-                        textAlign: 'center',
-                        textDecorationLine: 'underline',
-                        paddingVertical: 10,
+                        borderWidth: 3,
+                        borderColor: colors.green1,
+                        borderRadius: 16,
+                        width: screenDimensions.screenWidth * 0.8,
+                        height: screenDimensions.screenHeight * 0.42,
+                        backgroundColor: colors.tan,
+                        position: 'absolute',
+                        top: screenDimensions.screenHeight * 0.03,
+                        opacity: 0.85
                     }}
                 >
-                    Daily Discovery
-                </Text>
-                <ScrollView
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    style={styles.scrollView}
-                    contentContainerStyle={styles.contentContainer}
-                    onMomentumScrollEnd={handleScroll}
-                    ref={scrollViewRef}
-                >
-                    {dailyHints.map((hint, index) => (
-                        <View key={index} style={styles.page}>
-                            <Text
-                                style={{
-                                    fontFamily: appFont,
-                                    fontSize: 26,
-                                    color: colors.green1,
-                                    textAlign: 'center',
-                                }}
-                            >
-                                {hint}
-                            </Text>
-                        </View>
-                    ))}
-                </ScrollView>
-                <Pagination totalPages={dailyHints.length} currentPage={currentPage} />
-                <TouchableOpacity
-                    style={[styles.startButton, isButtonDisabled && { opacity: 0.3 }]}
-                    onPress={handleExplorePress}
-                    disabled={isButtonDisabled}
-                >
-                    <Text style={{ fontFamily: appFont, color: colors.tan, fontSize: 28 }}>
-                        Start Exploring!
+                    <Text
+                        style={{
+                            fontFamily: appFont,
+                            fontSize: 28,
+                            color: colors.green1,
+                            textAlign: 'center',
+                            textDecorationLine: 'underline',
+                            paddingTop: 10,
+                        }}
+                    >
+                        Daily Discovery
                     </Text>
-                </TouchableOpacity>
-            </WalkthroughableView>
+                    <View style={styles.foundAllContainer} >
+                        <Text style={[styles.textStyle, {fontSize: 25}]}>
+                            It looks like you found all the animals! Are you ready for a new challenge?
+                        </Text>
+                    </View>
+                    {/* <TouchableOpacity
+                        style={[styles.foundAllButton, {marginBottom: 10,}]}
+                        onPress={() => handleExplorePress('keep')}
+                        disabled={isButtonDisabled}
+                    >
+                        <Text style={{ fontFamily: appFont, color: colors.tan, fontSize: 26 }}>
+                            Restart Journey!
+                        </Text>
+                    </TouchableOpacity> */}
+                    <TouchableOpacity
+                        style={styles.startButton}
+                        onPress={() => handleExplorePress('keep')}
+                        disabled={isButtonDisabled}
+                    >
+                        <Text style={{ fontFamily: appFont, color: colors.tan, fontSize: 28 }}>
+                            New Challenge!
+                        </Text>
+                    </TouchableOpacity>
+                </WalkthroughableView>
+            ) : (
+                <WalkthroughableView
+                    style={{
+                        borderWidth: 3,
+                        borderColor: colors.green1,
+                        borderRadius: 16,
+                        width: screenDimensions.screenWidth * 0.8,
+                        height: screenDimensions.screenHeight * 0.42,
+                        backgroundColor: colors.tan,
+                        position: 'absolute',
+                        top: screenDimensions.screenHeight * 0.03,
+                        opacity: 0.85
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontFamily: appFont,
+                            fontSize: 28,
+                            color: colors.green1,
+                            textAlign: 'center',
+                            textDecorationLine: 'underline',
+                            paddingVertical: 10,
+                        }}
+                    >
+                        Daily Discovery
+                    </Text>
+                    <ScrollView
+                        horizontal
+                        pagingEnabled
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.scrollView}
+                        contentContainerStyle={styles.contentContainer}
+                        onMomentumScrollEnd={handleScroll}
+                        ref={scrollViewRef}
+                    >
+                        {dailyHints.map((hint, index) => (
+                            <View key={index} style={styles.page}>
+                                <Text style={styles.textStyle} >
+                                    {hint}
+                                </Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                    <Pagination totalPages={dailyHints.length} currentPage={currentPage} />
+                    <TouchableOpacity
+                        style={[styles.startButton, isButtonDisabled && { opacity: 0.3 }]}
+                        onPress={() => handleExplorePress('start')}
+                        disabled={isButtonDisabled}
+                    >
+                        <Text style={{ fontFamily: appFont, color: colors.tan, fontSize: 28 }}>
+                            Start Exploring!
+                        </Text>
+                    </TouchableOpacity>
+                </WalkthroughableView>                
+            )}
         </CopilotStep>
     );
 };
@@ -288,6 +340,22 @@ const styles = StyleSheet.create({
     contentContainer: {
         alignItems: "center",
     },
+    foundAllContainer: {
+        flex: 1,
+        margin: 4,
+        alignItems: "center",
+        width: screenDimensions.screenWidth * 0.8 - 18,
+        height: screenDimensions.screenHeight * 0.5 - 60,
+        paddingHorizontal: 10,
+        justifyContent: "center",
+        backgroundColor: colors.tan,
+    },
+    textStyle: {
+        fontFamily: appFont,
+        fontSize: 26,
+        color: colors.green1,
+        textAlign: 'center',
+    },
     page: {
         width: screenDimensions.screenWidth * 0.8 - 18,
         height: screenDimensions.screenHeight * 0.5 - 60,
@@ -300,6 +368,17 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         backgroundColor: colors.green2,
         height: screenDimensions.screenHeight * 0.06,
+        width: screenDimensions.screenWidth * 0.64,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 16,
+        borderColor: colors.green1,
+        borderWidth: 2,
+    },
+    foundAllButton: {
+        backgroundColor: colors.green2,
+        height: screenDimensions.screenHeight * 0.05,
         width: screenDimensions.screenWidth * 0.64,
         justifyContent: 'center',
         alignItems: 'center',

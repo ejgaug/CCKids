@@ -34,7 +34,7 @@ const CharBoxTips: React.FC<CharBoxTipsProps> = ({ characteristic, animal, charI
         }
     }
 
-        // Get description for size of animal
+    // Get description for size of animal
     const getSizeDescription = (displayVal: string) => {
         switch (displayVal) {
             case 'Very Tiny':
@@ -51,6 +51,30 @@ const CharBoxTips: React.FC<CharBoxTipsProps> = ({ characteristic, animal, charI
                 return 'Animals like Cows, Crocodiles, and Orcas are considered huge.';
             case 'Giant':
                 return 'Animals like Elephants, Whale Sharks, and Hippopotamuses are considered giant.';
+            default:
+                return characteristic; // Fallback
+        }
+    }
+
+    // Get description for movement of animal
+    const getMovementDescription = (displayVal: string) => {
+        switch (displayVal) {
+            case '0 Legs':
+                return 'This animal has no legs. It either slithers like a snake, crawls like a worm, or has a foot like a clam or slug.';
+            case '2 Legs':
+                return 'This animal primarily walks on 2 legs.';
+            case '4 Legs':
+                return 'This animal walks on 4 legs.';
+            case '5-6 Legs':
+                return 'This animal moves using 5 legs like a starfish or 6 legs like an insect.';
+            case '8 Legs':
+                return 'This animal moves using 8 limbs like octopuses and arachnids.';
+            case '10+ Legs':
+                return 'This animal moves using 10 or more limbs like centipededs and squids.';
+            case 'Wings':
+                return 'This animal primarily uses their wings to move by flying or swimming (like a penguin).';
+            case 'Fins/Flippers':
+                return 'This animal moves using fins like a fish or flippers like a marine mammal.';
             default:
                 return characteristic; // Fallback
         }
@@ -100,7 +124,7 @@ const CharBoxTips: React.FC<CharBoxTipsProps> = ({ characteristic, animal, charI
             },
             'Movement Characteristics': {
                 title: `Movement: ${formattedValue}`,
-                description: `The animal moves using ${formattedValue}.`
+                description: getMovementDescription(displayValue.toString())
             },
             Habitat: {
                 title: 'Habitat',

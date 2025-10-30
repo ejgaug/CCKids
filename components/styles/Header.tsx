@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CopilotStep, useCopilot } from 'react-native-copilot';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList, WalkthroughableTouchableOpacity } from '../types';
+import { deviceType } from '../styles/globalStyles';
 
 interface HeaderProps {
 	title: string;
@@ -64,7 +65,12 @@ const Header: React.FC<HeaderProps> = ({ title, screenName, navigation }) => {
 						style={{ position: 'absolute', left: 20, bottom: 9 }}
 						onPress={() => navigation.goBack()}
 					>
-						<Ionicons name="leaf-sharp" color="white" size={28} style={{ transform: [{ rotate: '-38deg' }] }} />
+						<Ionicons 
+							name="leaf-sharp" 
+							color="white" 
+							size={deviceType() === 'Tablet' ? 32 : 28} 
+							style={{ transform: [{ rotate: '-38deg' }] }} 
+						/>
 					</TouchableOpacity>
 				)}
 				<Text
@@ -98,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ title, screenName, navigation }) => {
 					>
 						<Ionicons
 							name="information-circle-outline"
-							size={32}
+							size={deviceType() === 'Tablet' ? 40 : 32}
 							color={'#fcf7c7ff'}
 						/>
 					</WalkthroughableTouchableOpacity>
