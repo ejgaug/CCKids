@@ -16,7 +16,6 @@ Critter Clues Kids is a mobile app designed to entertain and educate users of al
 ## Installation
 Critter Clues Kids is available for download on the following platforms:
    - iOS: Donaload from the App Store
-   - Android: Download frmo Google Play
 
 Found on both platforms by searching "Critter Clues Kids" -- look for the Red Macaw
 
